@@ -24,32 +24,36 @@ print(f"[INIT] Full topic path: {topic_path}")
 def main(request: Request):
     print("[INFO] YouTube comment ingestion started...")
     try:
-        request_youtube = youtube.commentThreads().list(
-            part="snippet",
-            allThreadsRelatedToChannelId=config["channel_id"],
-            maxResults=config["max_results"]
+        # First get videos from channel
+        search_req = youtube.search().list(
+            part="id",
+            channelId=config["channel_id"],
+            maxResults=5,
+            type="video"
         )
-        response = request_youtube.execute()
-        print(f"[INFO] Retrieved {len(response.get('items', []))} comments from YouTube API.")
+        search_resp = search_req.execute()
+        video_ids = [item["id"]["videoId"] for item in search_resp.get("items", [])]
+        print(f"[INFO] Found {len(video_ids)} videos.")
     except Exception as e:
-        print(f"[ERROR] Failed to fetch YouTube comments: {e}")
-        return f"Error fetching comments: {e}", 500
+        return f"Error fetching videos: {e}", 500
 
     published_count = 0
-    for item in response.get("items", []):
+    for video_id in video_ids:
         try:
-            comment_text = item["snippet"]["topLevelComment"]["snippet"]["textDisplay"]
-            comment_id = item["snippet"]["topLevelComment"]["id"]
-            message_json = json.dumps({
-                "id": comment_id,
-                "comment": comment_text
-            })
-            print(f"[PUBLISH] Sending comment ID {comment_id[:10]}...")
-            future = publisher.publish(topic_path, message_json.encode("utf-8"))
-            future.result()
-            published_count += 1
+            request_youtube = youtube.commentThreads().list(
+                part="snippet",
+                videoId=video_id,
+                maxResults=config["max_results"]
+            )
+            response = request_youtube.execute()
+            for item in response.get("items", []):
+                comment_text = item["snippet"]["topLevelComment"]["snippet"]["textDisplay"]
+                comment_id = item["snippet"]["topLevelComment"]["id"]
+                message_json = json.dumps({"id": comment_id, "comment": comment_text})
+                future = publisher.publish(topic_path, message_json.encode("utf-8"))
+                future.result()
+                published_count += 1
         except Exception as e:
-            print(f"[ERROR] Failed to publish comment: {e}")
+            print(f"[ERROR] video {video_id}: {e}")
 
-    print(f"[SUCCESS] Published {published_count} comments to Pub/Sub topic: {topic_path}")
     return f"Comments pushed to Pub/Sub ({published_count} messages).", 200
