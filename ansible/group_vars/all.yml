@@ -1,4 +1,4 @@
-project_id: "<<PROJECT_ID>>"
+project_id: "project-df6c9b3f-5610-4979-8d5"
 region: "us-central1"
-cf_sa_email: "cloud-fn-sa@<<PROJECT_ID>>.iam.gserviceaccount.com"
-bucket: "yt-raw-comments-<<DIGITS_IN_PROJECT_ID>>"
+cf_sa_email: "cloud-fn-sa@project-df6c9b3f-5610-4979-8d5.iam.gserviceaccount.com"
+bucket: "yt-raw-comments-project-df6c9b3f-5610-4979-8d5"

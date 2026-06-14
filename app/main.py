@@ -13,8 +13,7 @@ with open("config.yaml") as f:
 youtube = build("youtube", "v3", developerKey=config["youtube_api_key"])
 publisher = pubsub_v1.PublisherClient()
 
-# Try to get project ID from env; fall back to explicit default for safety
-PROJECT_ID = os.environ.get("GCP_PROJECT", "<<PROJECT_ID>>")
+PROJECT_ID = os.environ.get("GCP_PROJECT", "project-df6c9b3f-5610-4979-8d5")
 TOPIC_NAME = config["pubsub_topic"]
 topic_path = publisher.topic_path(PROJECT_ID, TOPIC_NAME)
 
@@ -24,9 +23,7 @@ print(f"[INIT] Full topic path: {topic_path}")
 
 def main(request: Request):
     print("[INFO] YouTube comment ingestion started...")
-
     try:
-        # Fetch latest comments for the configured channel
         request_youtube = youtube.commentThreads().list(
             part="snippet",
             allThreadsRelatedToChannelId=config["channel_id"],
@@ -47,12 +44,10 @@ def main(request: Request):
                 "id": comment_id,
                 "comment": comment_text
             })
-
-            print(f"[PUBLISH] Sending comment ID {comment_id[:10]}...")  # show short prefix for readability
+            print(f"[PUBLISH] Sending comment ID {comment_id[:10]}...")
             future = publisher.publish(topic_path, message_json.encode("utf-8"))
-            future.result()  # Wait for confirmation
+            future.result()
             published_count += 1
-
         except Exception as e:
             print(f"[ERROR] Failed to publish comment: {e}")
 
