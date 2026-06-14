@@ -186,9 +186,16 @@ yt-comments-gcp/
 - Implement **alerting system** for spikes in negative sentiment  
 
 ---
+
 ## 📫 Connect with Me
 
 * **Author:** *Anubhav Kumar Gupta*
 * **LinkedIn:** [Anubhav Kumar Gupta](https://www.linkedin.com/in/anubhav2103/)
 * **Email:** [gupta.anubhav2103@gmail.com](mailto:gupta.anubhav2103@gmail.com)
+
+<img width="1920" height="884" alt="image" src="https://github.com/user-attachments/assets/1f31ec6f-84a9-411c-bc32-74810b37026d" />
+---
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/929e053f-7025-4093-ba7d-71ab6935d31c" />
+---
+
 
