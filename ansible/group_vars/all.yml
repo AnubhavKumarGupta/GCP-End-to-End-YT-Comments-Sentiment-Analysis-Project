@@ -1,0 +1,4 @@
+project_id: "<<PROJECT_ID>>"
+region: "us-central1"
+cf_sa_email: "cloud-fn-sa@<<PROJECT_ID>>.iam.gserviceaccount.com"
+bucket: "yt-raw-comments-<<DIGITS_IN_PROJECT_ID>>"

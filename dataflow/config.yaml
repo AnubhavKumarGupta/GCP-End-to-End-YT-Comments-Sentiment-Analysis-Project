@@ -1,0 +1,5 @@
+project_id: "<<PROJECT_ID>>"
+bucket: "yt-raw-comments-<<PROJECT_ID>>"
+pubsub_topic: "yt-comments-topic"
+bq_dataset: "youtube_comments"
+bq_table: "comments"
