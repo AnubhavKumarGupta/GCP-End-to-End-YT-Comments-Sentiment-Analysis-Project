@@ -188,7 +188,7 @@ yt-comments-gcp/
 ---
 ## 📫 Connect with Me
 
-**Author:** *Anubhav Kumar Gupta* 
-**LinkedIn:** [Anubhav Kumar Gupta](https://www.linkedin.com/in/anubhav2103/)
-**Email:** [gupta.anubhav2103@gmail.com](mailto:gupta.anubhav2103@gmail.com)
+* **Author:** *Anubhav Kumar Gupta*
+* **LinkedIn:** [Anubhav Kumar Gupta](https://www.linkedin.com/in/anubhav2103/)
+* **Email:** [gupta.anubhav2103@gmail.com](mailto:gupta.anubhav2103@gmail.com)
 
