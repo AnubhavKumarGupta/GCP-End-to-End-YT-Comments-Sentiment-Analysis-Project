@@ -1,0 +1,4 @@
+youtube_api_key: "<<YT-API-KEY>>" 
+channel_id: "UCGa6G29zQLjG-sVs-fufUCA" 
+max_results: 50 
+pubsub_topic: "yt-comments-topic" 
